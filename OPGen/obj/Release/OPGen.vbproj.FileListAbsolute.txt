@@ -1,0 +1,7 @@
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\bin\Release\OPGen.exe
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\bin\Release\Newtonsoft.Json.dll
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\bin\Release\Newtonsoft.Json.xml
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\obj\Release\OPGen.mainForm.resources
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\obj\Release\OPGen.Resources.resources
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\obj\Release\OPGen.vbproj.GenerateResource.Cache
+D:\KERJA\VS Projects\BakpaoAjaib\OPGen\obj\Release\OPGen.exe
