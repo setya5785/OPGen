@@ -1,4 +1,4 @@
-﻿Imports System.Threading
+Imports System.Threading
 
 Public Class mainForm
 #Region "THREAD SAFE SET CONTROL"
@@ -41,12 +41,31 @@ Public Class mainForm
 
     Private Sub letsGen()
         showControl(True, pbLoading)
-        Dim opra As OprahProxy = New OprahProxy("se0306", "7502E43F3381C82E571733A350099BB5D449DD48311839C099ADC4631BA0CC04")
-        opra.register_subscriber()
-        opra.register_device()
-        SetText(opra.getUsername, tbUsername)
-        SetText(opra.getPassword, tbPassword)
+        If connTest("api.surfeasy.com") Then
+            Dim opra As OprahProxy = New OprahProxy("se0306", "7502E43F3381C82E571733A350099BB5D449DD48311839C099ADC4631BA0CC04")
+            opra.register_subscriber()
+            opra.register_device()
+            SetText(opra.getUsername, tbUsername)
+            SetText(opra.getPassword, tbPassword)
+        Else
+            MessageBox.Show("Tidak bisa akses server VPN, pastikan koneksi internet terhubung", "Warning !!!")
+        End If
+
         showControl(False, pbLoading)
     End Sub
+
+    Private Function connTest(target As String) As Boolean
+        Try
+            If My.Computer.Network.Ping(target, 1000) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
 
 End Class
