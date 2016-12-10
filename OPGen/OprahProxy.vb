@@ -1,4 +1,4 @@
-﻿Imports System.IO
+Imports System.IO
 Imports System.Net
 Imports System.Text
 Imports Newtonsoft.Json
@@ -29,24 +29,34 @@ Public Class OprahProxy
     End Function
 
     Sub register_subscriber()
-        Dim email_user As String = Guid.NewGuid().ToString()
-        Dim email As String = $"{email_user}@mailinator.com"
-        Dim password As String = Guid.NewGuid().ToString
-        Dim password_hash As String = hashSHA1(password)
-        postData = $"email={email}&password={password_hash}"
-        res = postURL("https://api.surfeasy.com/v2/register_subscriber", postData)
+        Try
+            Dim email_user As String = Guid.NewGuid().ToString()
+            Dim email As String = $"{email_user}@mailinator.com"
+            Dim password As String = Guid.NewGuid().ToString
+            Dim password_hash As String = hashSHA1(password)
+            postData = $"email={email}&password={password_hash}"
+            res = postURL("https://api.surfeasy.com/v2/register_subscriber", postData)
+        Catch ex As Exception
+            Log($"Register Subscriber ERROR : {ex.Message}")
+        End Try
+
     End Sub
 
     Sub register_device()
-        postData = $"client_type={client_type}&device_hash=4BE7D6F1BD040DE45A371FD831167BC108554111&device_name=Opera-Browser-Client"
-        res = postURL("https://api.surfeasy.com/v2/register_device", postData)
-        res = res.Replace(":{", ":[{")
-        res = res.Replace("}}", "}]}")
-        res = res.Replace("},", "}],")
-        Dim xSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(res)
-        device_id = xSet.Tables("data").Rows(0)("device_id").ToString
-        device_id_hash = hashSHA1(device_id)
-        device_password = xSet.Tables("data").Rows(0)("device_password").ToString
+        Try
+            postData = $"client_type={client_type}&device_hash=4BE7D6F1BD040DE45A371FD831167BC108554111&device_name=Opera-Browser-Client"
+            res = postURL("https://api.surfeasy.com/v2/register_device", postData)
+            res = res.Replace(":{", ":[{")
+            res = res.Replace("}}", "}]}")
+            res = res.Replace("},", "}],")
+            Dim xSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(res)
+            device_id = xSet.Tables("data").Rows(0)("device_id").ToString
+            device_id_hash = hashSHA1(device_id)
+            device_password = xSet.Tables("data").Rows(0)("device_password").ToString
+        Catch ex As Exception
+            Log($"Register Device ERROR : {ex.Message}")
+        End Try
+
     End Sub
 
 #Region "Function"
@@ -92,6 +102,12 @@ Public Class OprahProxy
             Return ex.Message
         End Try
     End Function
+
+    Private Sub Log(logMessage As String)
+        Using w As StreamWriter = File.AppendText($"log.csv")
+            w.WriteLine($"{DateTime.Now.ToLongDateString()};{DateTime.Now.ToLongTimeString()};{logMessage}")
+        End Using
+    End Sub
 
 #End Region
 End Class
