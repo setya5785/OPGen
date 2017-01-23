@@ -42,7 +42,7 @@ Public Class mainForm
     Private Sub letsGen()
         showControl(True, pbLoading)
         If connTest("api.surfeasy.com") Then
-            Dim opra As OprahProxy = New OprahProxy("se0306", "7502E43F3381C82E571733A350099BB5D449DD48311839C099ADC4631BA0CC04")
+            Dim opra As OprahProxy = New OprahProxy("se0310", "AE4CA57D1E3C0E6711C53416BFA0988F08D41B428D26D053A4C46EC72A79B9E7")
             opra.register_subscriber()
             opra.register_device()
             SetText(opra.getUsername, tbUsername)
