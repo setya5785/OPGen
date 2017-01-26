@@ -31,7 +31,8 @@ Public Class OprahProxy
     Sub register_subscriber()
         Try
             Dim email_user As String = Guid.NewGuid().ToString()
-            Dim email As String = $"{email_user}@mailinator.com"
+            'Dim email As String = $"{email_user}@mailinator.com"
+            Dim email As String = $"{email_user}@{client_type}.surfeasy.vpn"
             Dim password As String = Guid.NewGuid().ToString
             Dim password_hash As String = hashSHA1(password)
             postData = $"email={email}&password={password_hash}"
