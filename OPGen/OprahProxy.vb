@@ -84,6 +84,7 @@ Public Class OprahProxy
             request.Method = "POST"
             request.Headers.Add($"SE-Client-Type:{client_type}")
             request.Headers.Add($"SE-Client-API-Key:{client_key}")
+            request.Headers.Add($"SE-Operating-System:Windows")
 
             Dim byteArray As Byte() = Encoding.UTF8.GetBytes(postData)
             request.ContentType = "application/x-www-form-urlencoded"
